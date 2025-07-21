@@ -4,12 +4,14 @@ import {
   Badge,
   Box,
   IconButton,
+  LinearProgress,
   List,
   ListItem,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../store/store";
 
 const midLinks = [
   { title: "catalog", path: "/catalog" },
@@ -34,6 +36,7 @@ const navStyles = {
   },
 };
 export default function Navbar() {
+  const {isLoading} = useAppSelector(state => state.ui);
   return (
     <AppBar position="fixed">
       <Toolbar
@@ -71,6 +74,11 @@ export default function Navbar() {
           </List>
         </Box>
       </Toolbar>
+      {isLoading && (
+        <Box sx={{width: '100%'}}>
+            <LinearProgress sx={{ '& .MuiLinearProgress-bar': { backgroundColor: 'red' } }} />
+        </Box>
+      )}
     </AppBar>
   );
 }
